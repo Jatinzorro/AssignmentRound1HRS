@@ -1,4 +1,4 @@
-# 3. Data Platform (Data Mesh) Architecture
+# 3. Data Platform Architecture
 
 Requirement:
 Designing a Self service Data platform for user who can share data, write and
