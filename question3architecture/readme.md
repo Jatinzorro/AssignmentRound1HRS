@@ -14,12 +14,11 @@ Data Ingestion for both streaming and Batch data deployment should be done via I
 - Data Movement to Various Destinations: reporting and analysis
 - Deployment Strategy<br>
 ### Data Ingestion
-<br>
 Here, before choosing ingestion tools we should consider certain factors like:
 - Data Size
 - Freequency 
 - Transformations type for data coming in
-<br>Data ingestion can happen in two ways mainly:
+### Data ingestion can happen in two ways mainly:
 - Streaming: For streaming data we can use aws Lambda triggers, for example if we have data coming in S3 bucket
 the lambda will be triggered, and it will ingest further to our sources. <br>
 For the same task, we could go with streaming tools like Kinesis. <br>
