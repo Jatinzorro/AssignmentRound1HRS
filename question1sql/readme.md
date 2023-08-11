@@ -24,29 +24,22 @@ table in PARQUET data format and partition by checkin_date .
 Below is the SQL query for this. <br>
 **---SQL QUERY SOLUTION---** <br>
 ```
-CREATE TABLE recent_unreserved_rooms
-WITH (
-  format = 'PARQUET',
-  partitioned_by = ARRAY['checkin_date']
-) AS
-SELECT
-  room_number,
-  reservation_status,
-  checkin_date,
-  checkout_date,
-  room_type
-FROM (
-  SELECT
-    room_number,
-    reservation_status,
-    checkin_date,
-    checkout_date,
-    room_type,
-    ROW_NUMBER() OVER (PARTITION BY room_number ORDER BY checkin_date DESC) AS row_num
-  FROM reservations
-  WHERE reservation_status = 'OPEN'
-) subquery
-WHERE row_num = 1;
+CREATE EXTERNAL TABLE room_recent_status as
+(
+    with latest_reservation_status as (
+        SELECT ROW_NUMBER () OVER ( 
+            PARTITION BY room_number
+            ORDER BY checkout_date 
+        ) row_number,room_number,reservation_status,checkin_date,checkout_date
+        FROM reservations
+        where reservation_status = 'OPEN'
+    ) select room_number,reservation_status,checkin_date,checkout_date
+    from latest_reservation_status 
+    where row_number = 1
+)
+PARTITIONED BY (checkin_date STRING)
+STORED AS PARQUET
+LOCATION 's3://bucket_name//andPAth';
 ```
 ### PART(1.a)
 Assuming that analysts and data consultants often filter on the reservation_status column.<br>
