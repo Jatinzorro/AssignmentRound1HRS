@@ -50,7 +50,6 @@ For this we can use EMR to have spark job running there and Apache Nifi which ca
 based upon user event 
 
 ### Deployment Strategy 
-<br>
 We must focus on two aspect here, Tools and Code. Both need to be deployed using CI/CD and iaac tool.
 - IaaC: Define microservices infrastructure using Terraform. Manage EC2 instances, security groups, and VPC settings as code.
 <br> So it gives an idea based on Agile Methodology, we can make some changes or add new
